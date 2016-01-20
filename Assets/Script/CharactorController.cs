@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class CharactorController : MonoBehaviour {
+	public bool start = true;
 	public float time = 1.5f;
+	public int range = 50;
 
 	Animator animator;
 	private float currentRemainTime = 0.0f;
@@ -14,16 +16,23 @@ public class CharactorController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (animator.GetBool ("Start")) {
-			currentRemainTime += Time.deltaTime;
-			if (currentRemainTime >= time) {
-				setState ("Start", false);
+		if (start) {
+			if (animator.GetBool ("Start")) {
+				currentRemainTime += Time.deltaTime;
+				if (currentRemainTime >= time) {
+					setState ("Start", false);
+				}
+				return;
 			}
-			return;
-		}
-		if (!animator.GetBool ("Start")) {
-			if (Random.Range(0, 50) == 1) {
-				animator.SetTrigger("Trg");
+			if (!animator.GetBool ("Start")) {
+				if (Random.Range (0, range) == 1) {
+					animator.SetTrigger ("Trg");
+				}
+				return;
+			}
+		} else {
+			if (Random.Range (0, range) == 1) {
+				animator.SetTrigger ("Trg");
 			}
 			return;
 		}

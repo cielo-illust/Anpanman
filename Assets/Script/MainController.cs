@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour {
 
@@ -10,6 +11,17 @@ public class MainController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetMouseButtonDown(0)) {
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hit;
+			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
+				if (hit.collider.gameObject.tag == "Button0") {
+					SceneManager.LoadScene ("subMenu");
+				}
+				if (hit.collider.gameObject.tag == "Button1") {
+					SceneManager.LoadScene ("subMenu");
+				}
+			}
+		}
 	}
 }
