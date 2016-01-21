@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour {
 		}
 		if ((!endFlag) && (currentRemainTime >= endTime)) {
 			endFlag = true;
-			SceneManager.LoadScene ("main");
+			SceneManager.LoadScene ("menu");
 		}
 	}
 }

@@ -22,11 +22,12 @@ public class Cutin : MonoBehaviour {
 	public float scale1 = 1.0f;
 	public float scale2 = 1.0f;
 	public float scale3 = 1.0f;
+	public int state = -1;
+	public bool noDelete = false;
 
 	private float currentRemainTime = 0.0f;
 	private SpriteRenderer spRenderer;
 
-	private int state = -1;
 	private float srcPosX = 0.0f;
 	private float dstPosX = 0.0f;
 	private float srcPosY = 0.0f;
@@ -51,12 +52,12 @@ public class Cutin : MonoBehaviour {
 		defScaleX = transform.localScale.x;
 		defScaleY = transform.localScale.y;
 
+		setState (state); // -1で透明状態でステイへ
+
 		// 初期表示
 		if (fadeIn) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, 0);
-		transform.position = new Vector3(defPosX + posX, defPosY + posY, transform.position.z);
-		transform.localScale =  new Vector3(defScaleX * scale, defScaleY * scale, transform.localScale.z);
-
-		setState (-1); // 透明状態でステイへ
+		transform.position = new Vector3(defPosX + srcPosX, defPosY + srcPosY, transform.position.z);
+		transform.localScale =  new Vector3(defScaleX * srcScale, defScaleY * srcScale, transform.localScale.z);
 	}
 
 	// Update is called once per frame
@@ -172,7 +173,8 @@ public class Cutin : MonoBehaviour {
 
 		// オブジェクト破棄
 		if (stateValue == 3) {
-			GameObject.Destroy (gameObject);
+			state = -99;
+			if (!noDelete) GameObject.Destroy (gameObject);
 		}
 
 		// タイマー初期化
