@@ -24,8 +24,11 @@ public class Cutin : MonoBehaviour {
 	public float scale3 = 1.0f;
 	public int state = -1;
 	public bool noDelete = false;
+	public bool isSin = false;
+	public bool isSwim = false;
 
 	private float currentRemainTime = 0.0f;
+	private float currentTime = 0.0f;
 	private SpriteRenderer spRenderer;
 
 	private float srcPosX = 0.0f;
@@ -69,6 +72,7 @@ public class Cutin : MonoBehaviour {
 		}
 
 		// 次の遷移までの強度計算
+		currentTime += Time.deltaTime;
 		currentRemainTime += Time.deltaTime;
 		float alpha = currentRemainTime / fadeTime;
 				
@@ -86,7 +90,7 @@ public class Cutin : MonoBehaviour {
 				return;
 			}
 			if (fadeIn) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, alpha * maxAlpha);
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha), transform.position.z);
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
 			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 		// ステイ
@@ -95,7 +99,7 @@ public class Cutin : MonoBehaviour {
 				setState (2); // フェードアウトへ
 				return;
 			}
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha), transform.position.z);
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
 			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 		// フェードアウト
@@ -109,12 +113,25 @@ public class Cutin : MonoBehaviour {
 				return;
 			}
 			if (fadeOut) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, (fadeTime - alpha) * maxAlpha);
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha), transform.position.z);
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
 			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 	}
 	float blend (float src, float dst, float alpha) {
-		return dst * alpha + src * (1.0f - alpha);
+		float res = 0.0f;
+		if (!isSin) {
+			res = dst * alpha + src * (1.0f - alpha);
+		} else {
+			res = ((dst - src) / 2.0f) * Mathf.Sin(Mathf.PI*alpha - (Mathf.PI/2.0f)) + ((dst - src) / 2.0f) + src;
+		}
+		return res;
+	}
+	float swim (float t) {
+		float res = 0.0f;
+		if (isSwim) {
+			res = (transform.localScale.y * 0.1f) * Mathf.Sin(Mathf.PI*2.0f*t);
+		}
+		return res;
 	}
 	public void setState(int stateValue) {
 
@@ -137,6 +154,7 @@ public class Cutin : MonoBehaviour {
 
 		// フェードイン
 		if (stateValue == 0) {
+			currentTime = 0.0f;
 			state = 0;
 			srcPosX = posX;
 			dstPosX = posX1;
