@@ -49,6 +49,11 @@
      <Compile Include="Assets\Script\Cutin.cs" />
      <Compile Include="Assets\Script\GameController.cs" />
      <Compile Include="Assets\Script\MainController.cs" />
+     <Compile Include="Assets\Script\Play01Controller.cs" />
+     <Compile Include="Assets\Script\Play02Controller.cs" />
+     <Compile Include="Assets\Script\Play03Controller.cs" />
+     <Compile Include="Assets\Script\Play04Controller.cs" />
+     <Compile Include="Assets\Script\Play05Controller.cs" />
      <Compile Include="Assets\Script\SplashController.cs" />
      <Compile Include="Assets\Script\SubMenuController.cs" />
  <Reference Include="UnityEngine.UI">

@@ -77,6 +77,6 @@ public class SubMenuController : MonoBehaviour {
 	}
 	void ChangeScene()
 	{
-		SceneManager.LoadScene ("menu");
+		SceneManager.LoadScene ("play01");
 	}
 }
