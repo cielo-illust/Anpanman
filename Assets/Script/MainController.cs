@@ -33,20 +33,35 @@ public class MainController : MonoBehaviour {
 				}
 				if (hit.collider.gameObject.tag == "Button1") {
 					batako.setState ("Select", true);
-					top.setState (0);
 					sound.Play ();
 					changeScene = true;
+					Invoke ("PreChangeScene", 1.0f);
+					Invoke ("ChangeScene", 2.0f);
+					Invoke ("EndScene", sound.clip.length);
 				}
 				return;
 			}
-		} else {
-			currentRemainTime += Time.deltaTime;
-			if (currentRemainTime >= 1.1f) {
-				SceneManager.LoadScene ("subMenu");
-				endFlag = true;
-			}
-			return;
+//		} else {
+//			currentRemainTime += Time.deltaTime;
+//			if (currentRemainTime >= 1.1f) {
+//				SceneManager.LoadScene ("subMenu");
+//				endFlag = true;
+//			}
+//			return;
 		}
+	}
+	void PreChangeScene()
+	{
+		top.setState (0);
+	}
+	void ChangeScene()
+	{
+		SceneManager.LoadScene ("subMenu");
+		endFlag = true;
+	}
+	void EndScene()
+	{
+		GameObject.Destroy (gameObject);
 	}
 //	void OnGUI(){
 //		string label = "aaa = " + aaa;

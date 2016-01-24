@@ -1,0 +1,324 @@
+fileFormatVersion: 2
+guid: 415c4791a1b14ce429b692769da22166
+timeCreated: 1453634436
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: play@baikin_0
+    21300002: play@baikin_1
+    21300004: play@baikin_2
+    21300006: play@baikin_3
+    21300008: play@baikin_4
+    21300010: play@baikin_5
+    21300012: play@baikin_6
+    21300014: play@baikin_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -2
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    sprites:
+    - name: play@baikin_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 82, y: 39}
+        - {x: 74, y: 88}
+        - {x: 61, y: 159}
+        - {x: 50, y: 170}
+        - {x: -60, y: 170}
+        - {x: -70, y: 168}
+        - {x: -88, y: 41}
+        - {x: -88, y: -141}
+        - {x: -78, y: -172}
+        - {x: -59, y: -177}
+        - {x: 40, y: -177}
+        - {x: 72, y: -172}
+        - {x: 90, y: -162}
+        - {x: 90, y: -44}
+        - {x: 68, y: -1}
+      - - {x: -87, y: -100}
+        - {x: -84, y: -99}
+        - {x: -84, y: -96}
+        - {x: -87, y: -95}
+        - {x: -89, y: -97}
+      - - {x: -55, y: 171}
+        - {x: -53, y: 169}
+        - {x: -50, y: 170}
+        - {x: -50, y: 173}
+        - {x: -52, y: 175}
+        - {x: -55, y: 174}
+    - name: play@baikin_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 64, y: 167}
+        - {x: 47, y: 170}
+        - {x: 37, y: 162}
+        - {x: 38, y: 152}
+        - {x: 39, y: 149}
+        - {x: -1, y: 173}
+        - {x: -58, y: 173}
+        - {x: -75, y: 136}
+        - {x: -75, y: -35}
+        - {x: -45, y: -65}
+        - {x: 84, y: -65}
+        - {x: 84, y: 114}
+        - {x: 72, y: 162}
+    - name: play@baikin_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48, y: -178}
+        - {x: -45, y: -177}
+        - {x: -45, y: -174}
+        - {x: -48, y: -173}
+        - {x: -50, y: -175}
+      - - {x: 113, y: -11}
+        - {x: 113, y: 43}
+        - {x: 81, y: 83}
+        - {x: 47, y: 172}
+        - {x: -3, y: 172}
+        - {x: -19, y: 166}
+        - {x: -33, y: 172}
+        - {x: -85, y: 172}
+        - {x: -76, y: 147}
+        - {x: -119, y: 9}
+        - {x: -119, y: -39}
+        - {x: -94, y: -88}
+        - {x: -75, y: -169}
+        - {x: 70, y: -169}
+        - {x: 92, y: -160}
+        - {x: 112, y: -138}
+        - {x: 67, y: -70}
+    - name: play@baikin_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 20, y: 180}
+        - {x: -17, y: 180}
+        - {x: -30, y: 175}
+        - {x: -80, y: 77}
+        - {x: -80, y: -31}
+        - {x: -75, y: -55}
+        - {x: 72, y: -55}
+        - {x: 98, y: 3}
+        - {x: 98, y: 153}
+        - {x: 71, y: 157}
+    - name: play@baikin_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 95, y: -56}
+        - {x: 73, y: -25}
+        - {x: 84, y: 69}
+        - {x: 63, y: 165}
+        - {x: 57, y: 172}
+        - {x: 21, y: 172}
+        - {x: 3, y: 142}
+        - {x: -35, y: 172}
+        - {x: -69, y: 172}
+        - {x: -75, y: 158}
+        - {x: -85, y: 69}
+        - {x: -93, y: -5}
+        - {x: -93, y: -148}
+        - {x: -67, y: -177}
+        - {x: 45, y: -177}
+        - {x: 94, y: -158}
+        - {x: 66, y: -103}
+        - {x: 95, y: -84}
+      - - {x: 65, y: -172}
+        - {x: 68, y: -171}
+        - {x: 68, y: -168}
+        - {x: 65, y: -167}
+        - {x: 63, y: -169}
+      - - {x: -90, y: 40}
+        - {x: -88, y: 38}
+        - {x: -85, y: 39}
+        - {x: -85, y: 46}
+        - {x: -87, y: 48}
+        - {x: -90, y: 47}
+      - - {x: -53, y: 170}
+        - {x: -50, y: 171}
+        - {x: -50, y: 174}
+        - {x: -53, y: 175}
+        - {x: -55, y: 173}
+    - name: play@baikin_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 52, y: 173}
+        - {x: -55, y: 173}
+        - {x: -66, y: 162}
+        - {x: -77, y: 70}
+        - {x: -77, y: -33}
+        - {x: -43, y: -66}
+        - {x: 76, y: -66}
+        - {x: 83, y: -35}
+        - {x: 83, y: 123}
+        - {x: 74, y: 159}
+      - - {x: 93, y: 41}
+        - {x: 96, y: 42}
+        - {x: 96, y: 45}
+        - {x: 93, y: 46}
+        - {x: 91, y: 44}
+    - name: play@baikin_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 118, y: 41}
+        - {x: 90, y: 152}
+        - {x: 86, y: 171}
+        - {x: 41, y: 179}
+        - {x: -47, y: 179}
+        - {x: -56, y: 123}
+        - {x: -111, y: 50}
+        - {x: -111, y: 24}
+        - {x: -106, y: 13}
+        - {x: -94, y: -52}
+        - {x: -111, y: -133}
+        - {x: -111, y: -135}
+        - {x: -90, y: -144}
+        - {x: -13, y: -163}
+        - {x: 1, y: -165}
+        - {x: 56, y: -165}
+        - {x: 67, y: -151}
+        - {x: 42, y: -79}
+        - {x: 118, y: -32}
+      - - {x: 62, y: -159}
+        - {x: 65, y: -158}
+        - {x: 65, y: -155}
+        - {x: 62, y: -154}
+        - {x: 60, y: -156}
+      - - {x: -95, y: -67}
+        - {x: -92, y: -66}
+        - {x: -92, y: -63}
+        - {x: -95, y: -62}
+        - {x: -97, y: -64}
+    - name: play@baikin_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 97, y: 157}
+        - {x: 36, y: 126}
+        - {x: 38, y: 180}
+        - {x: 3, y: 180}
+        - {x: -69, y: 88}
+        - {x: -69, y: -2}
+        - {x: -61, y: -54}
+        - {x: 59, y: -54}
+        - {x: 76, y: -52}
+        - {x: 101, y: 32}
+        - {x: 116, y: 87}
+        - {x: 116, y: 144}
+      - - {x: 111, y: 146}
+        - {x: 114, y: 147}
+        - {x: 114, y: 150}
+        - {x: 111, y: 151}
+        - {x: 109, y: 149}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

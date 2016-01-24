@@ -1,0 +1,224 @@
+fileFormatVersion: 2
+guid: fc6d285cdcf393d47a462f306828f93f
+timeCreated: 1453634394
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: play05@medal_0
+    21300002: play05@medal_1
+    21300004: play05@medal_2
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -2
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    sprites:
+    - name: play05@medal_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 115, y: -123}
+        - {x: 129, y: -110}
+        - {x: 144, y: -91}
+        - {x: 153, y: -77}
+        - {x: 167, y: -48}
+        - {x: 174, y: -20}
+        - {x: 177, y: -10}
+        - {x: 178, y: 10}
+        - {x: 178, y: 37}
+        - {x: 177, y: 42}
+        - {x: 173, y: 69}
+        - {x: 163, y: 99}
+        - {x: 148, y: 129}
+        - {x: 116, y: 164}
+        - {x: 86, y: 186}
+        - {x: 46, y: 204}
+        - {x: 21, y: 208}
+        - {x: -19, y: 208}
+        - {x: -32, y: 207}
+        - {x: -69, y: 197}
+        - {x: -103, y: 177}
+        - {x: -133, y: 150}
+        - {x: -154, y: 122}
+        - {x: -166, y: 98}
+        - {x: -172, y: 83}
+        - {x: -180, y: 50}
+        - {x: -181, y: 38}
+        - {x: -181, y: -2}
+        - {x: -178, y: -15}
+        - {x: -174, y: -37}
+        - {x: -166, y: -59}
+        - {x: -150, y: -88}
+        - {x: -138, y: -103}
+        - {x: -119, y: -123}
+        - {x: -103, y: -137}
+        - {x: -69, y: -156}
+        - {x: -49, y: -163}
+        - {x: -27, y: -168}
+        - {x: 29, y: -168}
+        - {x: 66, y: -156}
+        - {x: 86, y: -145}
+        - {x: 100, y: -136}
+    - name: play05@medal_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 118, y: -131}
+        - {x: 132, y: -118}
+        - {x: 147, y: -99}
+        - {x: 156, y: -85}
+        - {x: 170, y: -56}
+        - {x: 177, y: -28}
+        - {x: 180, y: -18}
+        - {x: 181, y: 2}
+        - {x: 181, y: 29}
+        - {x: 180, y: 34}
+        - {x: 176, y: 61}
+        - {x: 166, y: 91}
+        - {x: 151, y: 121}
+        - {x: 119, y: 156}
+        - {x: 89, y: 178}
+        - {x: 49, y: 196}
+        - {x: 24, y: 200}
+        - {x: -16, y: 200}
+        - {x: -29, y: 199}
+        - {x: -66, y: 189}
+        - {x: -100, y: 169}
+        - {x: -130, y: 142}
+        - {x: -151, y: 114}
+        - {x: -163, y: 90}
+        - {x: -169, y: 75}
+        - {x: -177, y: 42}
+        - {x: -178, y: 30}
+        - {x: -178, y: -10}
+        - {x: -175, y: -23}
+        - {x: -171, y: -45}
+        - {x: -163, y: -67}
+        - {x: -147, y: -96}
+        - {x: -135, y: -111}
+        - {x: -116, y: -131}
+        - {x: -100, y: -145}
+        - {x: -66, y: -164}
+        - {x: -46, y: -171}
+        - {x: -24, y: -176}
+        - {x: 32, y: -176}
+        - {x: 69, y: -164}
+        - {x: 89, y: -153}
+        - {x: 103, y: -144}
+    - name: play05@medal_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 118, y: -138}
+        - {x: 132, y: -125}
+        - {x: 147, y: -106}
+        - {x: 156, y: -92}
+        - {x: 170, y: -63}
+        - {x: 177, y: -35}
+        - {x: 180, y: -25}
+        - {x: 181, y: -5}
+        - {x: 181, y: 22}
+        - {x: 180, y: 27}
+        - {x: 176, y: 54}
+        - {x: 166, y: 84}
+        - {x: 151, y: 114}
+        - {x: 119, y: 149}
+        - {x: 89, y: 171}
+        - {x: 49, y: 189}
+        - {x: 24, y: 193}
+        - {x: -16, y: 193}
+        - {x: -29, y: 192}
+        - {x: -66, y: 182}
+        - {x: -100, y: 162}
+        - {x: -130, y: 135}
+        - {x: -151, y: 107}
+        - {x: -163, y: 83}
+        - {x: -169, y: 68}
+        - {x: -177, y: 35}
+        - {x: -178, y: 23}
+        - {x: -178, y: -17}
+        - {x: -175, y: -30}
+        - {x: -171, y: -52}
+        - {x: -163, y: -74}
+        - {x: -147, y: -103}
+        - {x: -135, y: -118}
+        - {x: -116, y: -138}
+        - {x: -100, y: -152}
+        - {x: -66, y: -171}
+        - {x: -46, y: -178}
+        - {x: -24, y: -183}
+        - {x: 32, y: -183}
+        - {x: 69, y: -171}
+        - {x: 89, y: -160}
+        - {x: 103, y: -151}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

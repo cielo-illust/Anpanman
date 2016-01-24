@@ -26,6 +26,7 @@ public class Cutin : MonoBehaviour {
 	public bool noDelete = false;
 	public bool isSin = false;
 	public bool isSwim = false;
+	public float swimValue = 0.1f;
 
 	private float currentRemainTime = 0.0f;
 	private float currentTime = 0.0f;
@@ -66,16 +67,20 @@ public class Cutin : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// 何もしない
-		if (state == -99) {
-			return;
-		}
-
 		// 次の遷移までの強度計算
 		currentTime += Time.deltaTime;
 		currentRemainTime += Time.deltaTime;
 		float alpha = currentRemainTime / fadeTime;
-				
+		if (alpha >= 1.0f) {
+			alpha = 1.0f;
+		}
+
+		// 何もしない
+		if (state == -99) {
+			transform.position = new Vector3(defPosX + srcPosX, defPosY + srcPosY + swim(currentTime), transform.position.z);
+			return;
+		}
+
 		// 透明状態でステイ
 		if (state == -1) {
 			if ( currentRemainTime >= fadeTime ) {
@@ -85,25 +90,28 @@ public class Cutin : MonoBehaviour {
 		}
 		// フェードイン
 		if (state == 0) {
+			if (fadeIn) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, alpha * maxAlpha);
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
+			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 			if ( currentRemainTime >= fadeTime ) {
 				setState (1); // ステイへ
 				return;
 			}
-			if (fadeIn) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, alpha * maxAlpha);
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
-			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 		// ステイ
 		if (state == 1) {
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
+			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 			if ( currentRemainTime >= fadeTime ) {
 				setState (2); // フェードアウトへ
 				return;
 			}
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
-			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 		// フェードアウト
 		if (state == 2) {
+			if (fadeOut) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, (1.0f - alpha) * maxAlpha);
+			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
+			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 			if (currentRemainTime >= fadeTime ) {
 				if (loop) {
 					setState (0); // フェードインからやり直し
@@ -112,9 +120,6 @@ public class Cutin : MonoBehaviour {
 				}
 				return;
 			}
-			if (fadeOut) spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, (fadeTime - alpha) * maxAlpha);
-			transform.position = new Vector3(defPosX + blend (srcPosX, dstPosX, alpha), defPosY + blend (srcPosY, dstPosY, alpha) + swim (currentTime), transform.position.z);
-			transform.localScale =  new Vector3(defScaleX * blend (srcScale, dstScale, alpha), defScaleY * blend (srcScale, dstScale, alpha), transform.localScale.z);
 		}
 	}
 	float blend (float src, float dst, float alpha) {
@@ -129,7 +134,7 @@ public class Cutin : MonoBehaviour {
 	float swim (float t) {
 		float res = 0.0f;
 		if (isSwim) {
-			res = (transform.localScale.y * 0.1f) * Mathf.Sin(Mathf.PI*2.0f*t);
+			res = (transform.localScale.y * swimValue) * Mathf.Sin(Mathf.PI*2.0f*t);
 		}
 		return res;
 	}
@@ -201,6 +206,8 @@ public class Cutin : MonoBehaviour {
 		// 次のステートまでの時間が-1で指定されている場合は、何もしないステートに遷移
 		if (fadeTime == -1.0f) {
 			state = -99;
+			srcPosX = transform.position.x - defPosX;
+			srcPosY = transform.position.y - defPosY;
 		}
 		return;
 	}

@@ -1,0 +1,301 @@
+fileFormatVersion: 2
+guid: 8c42b6646da01cd4a8ea9822e4ea5cfc
+timeCreated: 1453634834
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: play@shoku_0
+    21300002: play@shoku_1
+    21300004: play@shoku_2
+    21300006: play@shoku_3
+    21300008: play@shoku_4
+    21300010: play@shoku_5
+    21300012: play@shoku_6
+    21300014: play@shoku_7
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -2
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    sprites:
+    - name: play@shoku_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 72, y: 5}
+        - {x: 61, y: 98}
+        - {x: 78, y: 105}
+        - {x: 78, y: 128}
+        - {x: 67, y: 173}
+        - {x: 38, y: 179}
+        - {x: -52, y: 179}
+        - {x: -83, y: 154}
+        - {x: -83, y: 103}
+        - {x: -73, y: 94}
+        - {x: -75, y: -33}
+        - {x: -83, y: -68}
+        - {x: -83, y: -152}
+        - {x: -68, y: -168}
+        - {x: -36, y: -176}
+        - {x: 32, y: -176}
+        - {x: 54, y: -174}
+        - {x: 73, y: -168}
+        - {x: 78, y: -158}
+        - {x: 78, y: -50}
+    - name: play@shoku_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 77, y: 112}
+        - {x: 77, y: 167}
+        - {x: 42, y: 182}
+        - {x: -41, y: 182}
+        - {x: -45, y: 181}
+        - {x: -77, y: 157}
+        - {x: -77, y: -55}
+        - {x: -56, y: -60}
+        - {x: 61, y: -60}
+        - {x: 77, y: -56}
+        - {x: 77, y: -29}
+        - {x: 63, y: 99}
+    - name: play@shoku_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 128, y: 79}
+        - {x: 75, y: 61}
+        - {x: 96, y: 156}
+        - {x: 48, y: 181}
+        - {x: -47, y: 181}
+        - {x: -83, y: 137}
+        - {x: -80, y: 70}
+        - {x: -125, y: 58}
+        - {x: -125, y: -1}
+        - {x: -114, y: -19}
+        - {x: -125, y: -27}
+        - {x: -125, y: -102}
+        - {x: -90, y: -147}
+        - {x: 5, y: -80}
+        - {x: 11, y: -137}
+        - {x: 34, y: -151}
+        - {x: 83, y: -151}
+        - {x: 104, y: -115}
+        - {x: 66, y: -73}
+        - {x: 128, y: -47}
+    - name: play@shoku_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 58, y: 145}
+        - {x: 31, y: 182}
+        - {x: -52, y: 182}
+        - {x: -100, y: 153}
+        - {x: -100, y: 87}
+        - {x: -66, y: 13}
+        - {x: -79, y: -59}
+        - {x: -77, y: -63}
+        - {x: 73, y: -63}
+        - {x: 77, y: -61}
+        - {x: 77, y: -37}
+        - {x: 49, y: 112}
+      - - {x: -78, y: 57}
+        - {x: -75, y: 58}
+        - {x: -75, y: 61}
+        - {x: -78, y: 62}
+        - {x: -80, y: 60}
+    - name: play@shoku_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75, y: 126}
+        - {x: 70, y: 162}
+        - {x: 41, y: 180}
+        - {x: 31, y: 182}
+        - {x: -48, y: 182}
+        - {x: -83, y: 162}
+        - {x: -83, y: 116}
+        - {x: -80, y: 109}
+        - {x: -71, y: 5}
+        - {x: -78, y: -43}
+        - {x: -81, y: -66}
+        - {x: -83, y: -76}
+        - {x: -83, y: -119}
+        - {x: -53, y: -124}
+        - {x: -73, y: -148}
+        - {x: -74, y: -160}
+        - {x: -50, y: -176}
+        - {x: 66, y: -176}
+        - {x: 78, y: -162}
+        - {x: 78, y: -30}
+        - {x: 64, y: 47}
+    - name: play@shoku_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 45, y: 182}
+        - {x: -47, y: 182}
+        - {x: -76, y: 153}
+        - {x: -76, y: 114}
+        - {x: -67, y: 25}
+        - {x: -76, y: -18}
+        - {x: -76, y: -54}
+        - {x: -58, y: -60}
+        - {x: 50, y: -60}
+        - {x: 74, y: -58}
+        - {x: 78, y: -48}
+        - {x: 79, y: -24}
+        - {x: 79, y: 164}
+      - - {x: -57, y: 20}
+        - {x: -54, y: 21}
+        - {x: -54, y: 24}
+        - {x: -57, y: 25}
+        - {x: -59, y: 23}
+    - name: play@shoku_6
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 93, y: -107}
+        - {x: 108, y: -105}
+        - {x: 126, y: -76}
+        - {x: 126, y: -12}
+        - {x: 124, y: -10}
+        - {x: 124, y: 73}
+        - {x: 123, y: 120}
+        - {x: 69, y: 203}
+        - {x: -38, y: 203}
+        - {x: -55, y: 192}
+        - {x: -70, y: 160}
+        - {x: -123, y: 92}
+        - {x: -102, y: 58}
+        - {x: -92, y: -3}
+        - {x: -94, y: -13}
+        - {x: -128, y: -52}
+        - {x: -128, y: -94}
+        - {x: -97, y: -107}
+        - {x: -59, y: -107}
+        - {x: -29, y: -63}
+        - {x: 50, y: -88}
+        - {x: 67, y: -107}
+    - name: play@shoku_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 74, y: 181}
+        - {x: -32, y: 181}
+        - {x: -58, y: 178}
+        - {x: -82, y: 128}
+        - {x: -62, y: 93}
+        - {x: -82, y: -42}
+        - {x: -82, y: -53}
+        - {x: -76, y: -61}
+        - {x: 73, y: -61}
+        - {x: 81, y: -58}
+        - {x: 77, y: -45}
+        - {x: 81, y: -20}
+        - {x: 81, y: 163}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
