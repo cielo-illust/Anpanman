@@ -11,11 +11,19 @@ public class MainController : MonoBehaviour {
 	private bool endFlag = false;
 
 	AudioSource sound;
+	AudioSource BGM;
 
 	// Use this for initialization
 	void Start () {
 		DontDestroyOnLoad (this); // シーンが変わっても消えないオブジェクトに指定
-		sound = GetComponent<AudioSource> ();
+		AudioSource[] audioSources = GetComponents<AudioSource>();
+		sound = audioSources[0];
+		BGM = audioSources[1];
+
+		GameObject obj = GameObject.FindWithTag ("TitleController");
+		if (obj == null) {
+			BGM.Play ();
+		}
 	}
 
 	// Update is called once per frame

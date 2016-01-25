@@ -10,26 +10,31 @@ public class SubMenuController : MonoBehaviour {
 	public Cutin item03;
 	public Cutin buttonYes;
 	public Cutin buttonNo;
+	public GameObject mainBgmController;
 
-	private float currentRemainTime = 0.0f;
 	private bool selectFlag = false;
 	private bool changeScene = false;
 
-
 	// Use this for initialization
 	void Start () {
-	
+		GameObject obj = GameObject.FindWithTag ("MainBgmController");
+		if (obj == null) {
+			Instantiate (mainBgmController);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (changeScene) {
+			return;
+		}
 		if (Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast ((Vector2)ray.origin, (Vector2)ray.direction, 100);
 			if (hit.collider.gameObject.tag == "Button0") {
 				top.setState(0);
 				changeScene = true;
-				Invoke ("ChangeScene", 1.1f);
+				Invoke ("PrevScene", 1.1f);
 			}
 			if (hit.collider.gameObject.tag == "Item01") {
 				black.setState(0);
@@ -78,5 +83,9 @@ public class SubMenuController : MonoBehaviour {
 	void ChangeScene()
 	{
 		SceneManager.LoadScene ("play01");
+	}
+	void PrevScene()
+	{
+		SceneManager.LoadScene ("menu");
 	}
 }

@@ -7,8 +7,8 @@ public class Play01Controller : MonoBehaviour {
 	public Cutin black;
 	public Cutin buttonRetry;
 	public Cutin buttonHome;
-	public Cutin buttonOpenMenu;
 	public Cutin buttonCloseMenu;
+	public CircleCollider2D buttonCloseMenuCol;
 
 	AudioSource BGM;
 	AudioSource BGMonVoice;
@@ -23,6 +23,14 @@ public class Play01Controller : MonoBehaviour {
 		BGM = audioSources[0];
 		BGMonVoice = audioSources[1];
 		BGMonVoice.Play ();
+		Invoke ("PlayNoVoice", BGMonVoice.clip.length);
+
+		GameObject obj = GameObject.FindWithTag ("MainBgmController");
+		if (obj != null) {
+			GameObject.Destroy (obj);
+		}
+
+		buttonCloseMenuCol.enabled = false;
 	}
 
 	// Update is called once per frame
@@ -35,21 +43,25 @@ public class Play01Controller : MonoBehaviour {
 			}
 			if ((hit.collider.gameObject.tag == "ButtonOpenMenu") && (!menuFlag)) {
 				menuFlag = true;
+				buttonCloseMenuCol.enabled = true;
 				black.setState(0);
+				buttonCloseMenu.setState(0);
 				buttonRetry.setState(0);
 				buttonHome.setState(0);
 			}
 			if ((hit.collider.gameObject.tag == "ButtonCloseMenu") && (menuFlag)) {
 				menuFlag = false;
+				buttonCloseMenuCol.enabled = false;
 				black.setState(2);
+				buttonCloseMenu.setState(2);
 				buttonRetry.setState(2);
 				buttonHome.setState(2);
 			}
 			if ((hit.collider.gameObject.tag == "ButtonRetry") && (menuFlag)) {
-				Invoke ("PrevScene", 0.0f);
+				Invoke ("RetryScene", 0.0f);
 			}
 			if ((hit.collider.gameObject.tag == "ButtonHome") && (menuFlag)) {
-				Invoke ("PrevScene", 0.0f);
+				Invoke ("HomeScene", 0.0f);
 			}
 			return;
 		}
@@ -58,8 +70,16 @@ public class Play01Controller : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("play02");
 	}
-	void PrevScene()
+	void HomeScene()
 	{
 		SceneManager.LoadScene ("menu");
+	}
+	void RetryScene()
+	{
+		SceneManager.LoadScene ("play01");
+	}
+	void PlayNoVoice()
+	{
+		BGM.Play ();
 	}
 }

@@ -48,14 +48,19 @@
      <Compile Include="Assets\Script\CharactorController.cs" />
      <Compile Include="Assets\Script\Cutin.cs" />
      <Compile Include="Assets\Script\GameController.cs" />
+     <Compile Include="Assets\Script\MainBgmController.cs" />
      <Compile Include="Assets\Script\MainController.cs" />
+     <Compile Include="Assets\Script\MenuController.cs" />
      <Compile Include="Assets\Script\Play01Controller.cs" />
      <Compile Include="Assets\Script\Play02Controller.cs" />
      <Compile Include="Assets\Script\Play03Controller.cs" />
      <Compile Include="Assets\Script\Play04Controller.cs" />
      <Compile Include="Assets\Script\Play05Controller.cs" />
+     <Compile Include="Assets\Script\PlayController.cs" />
+     <Compile Include="Assets\Script\ScrollBgController.cs" />
      <Compile Include="Assets\Script\SplashController.cs" />
      <Compile Include="Assets\Script\SubMenuController.cs" />
+     <Compile Include="Assets\Script\TitleController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

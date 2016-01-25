@@ -21,6 +21,7 @@ public class Play05Controller : MonoBehaviour {
 		BGM3 = audioSources[4];
 		BGM3onVoice = audioSources[5];
 		BGM1onVoice.Play ();
+		Invoke ("PlayNoVoice", BGM1onVoice.clip.length);
 	}
 
 	// Update is called once per frame
@@ -44,5 +45,9 @@ public class Play05Controller : MonoBehaviour {
 	void RetryScene()
 	{
 		SceneManager.LoadScene ("play01");
+	}
+	void PlayNoVoice()
+	{
+		BGM1.Play ();
 	}
 }
