@@ -9,6 +9,9 @@ public class Play02Controller : MonoBehaviour {
 	AudioSource voiceFaceFinish;
 	private bool changeScene = false;
 
+	private GameObject playController;
+	private PlayController play;
+
 	// Use this for initialization
 	void Start () {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -17,8 +20,20 @@ public class Play02Controller : MonoBehaviour {
 		voiceFaceFinish = audioSources[2];
 
 		BGMonVoice.Play ();
+
 		Invoke ("PlayFaceFinish", 3.0f);
 		Invoke ("PlayNoVoice", BGMonVoice.clip.length);
+
+		// Playコントローラーがない場合は無条件でメニュー画面に戻る
+		GameObject playController = GameObject.FindWithTag ("PlayController");
+		if (playController == null) {
+			SceneManager.LoadScene ("menu");
+			return;
+		}
+		play = playController.GetComponent<PlayController>();
+
+		// 表示
+		play.ShowFoods ();
 	}
 
 	// Update is called once per frame
@@ -29,13 +44,15 @@ public class Play02Controller : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast ((Vector2)ray.origin, (Vector2)ray.direction, 100);
-			if (hit.collider.gameObject.tag == "ButtonYes") {
-				changeScene = true;
-				Invoke ("NextScene", 0.0f);
-			}
-			if (hit.collider.gameObject.tag == "ButtonNo") {
-				changeScene = true;
-				Invoke ("PrevScene", 0.0f);
+			if (hit.collider != null) {
+				if (hit.collider.gameObject.tag == "ButtonYes") {
+					changeScene = true;
+					Invoke ("NextScene", 0.0f);
+				}
+				if (hit.collider.gameObject.tag == "ButtonNo") {
+					changeScene = true;
+					Invoke ("PrevScene", 0.0f);
+				}
 			}
 			return;
 		}

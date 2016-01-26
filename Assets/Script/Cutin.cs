@@ -77,7 +77,9 @@ public class Cutin : MonoBehaviour {
 
 		// 何もしない
 		if (state == -99) {
-			transform.position = new Vector3(defPosX + srcPosX, defPosY + srcPosY + swim(currentTime), transform.position.z);
+			if (isSwim) {
+				transform.position = new Vector3 (defPosX + srcPosX, defPosY + srcPosY + swim (currentTime), transform.position.z);
+			}
 			return;
 		}
 

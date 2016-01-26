@@ -30,21 +30,23 @@ public class MenuController : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast ((Vector2)ray.origin, (Vector2)ray.direction, 100);
-			if (hit.collider.gameObject.tag == "Button0") {
-				batako.setState ("Select", true);
-				sound.Play ();
-				changeScene = true;
-				Invoke ("PreChangeScene", 1.0f);
-				Invoke ("ChangeScene", 2.0f);
-				Invoke ("EndScene", sound.clip.length);
-			}
-			if (hit.collider.gameObject.tag == "Button1") {
-				batako.setState ("Select", true);
-				sound.Play ();
-				changeScene = true;
-				Invoke ("PreChangeScene", 1.0f);
-				Invoke ("ChangeScene", 2.0f);
-				Invoke ("EndScene", sound.clip.length);
+			if (hit.collider != null) {
+				if (hit.collider.gameObject.tag == "Button0") {
+					batako.setState ("Select", true);
+					sound.Play ();
+					changeScene = true;
+					Invoke ("PreChangeScene", 1.0f);
+					Invoke ("ChangeScene", 2.0f);
+					Invoke ("EndScene", sound.clip.length);
+				}
+				if (hit.collider.gameObject.tag == "Button1") {
+					batako.setState ("Select", true);
+					sound.Play ();
+					changeScene = true;
+					Invoke ("PreChangeScene", 1.0f);
+					Invoke ("ChangeScene", 2.0f);
+					Invoke ("EndScene", sound.clip.length);
+				}
 			}
 			return;
 		}
