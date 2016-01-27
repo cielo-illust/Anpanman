@@ -7,7 +7,6 @@ public class MenuController : MonoBehaviour {
 	public Cutin top;
 	public GameObject mainBgmController;
 
-	private float currentRemainTime = 0.0f;
 	private bool changeScene = false;
 	AudioSource sound;
 

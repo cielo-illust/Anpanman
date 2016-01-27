@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Script\CharactorController.cs" />
      <Compile Include="Assets\Script\Cutin.cs" />
+     <Compile Include="Assets\Script\DontDestroyController.cs" />
      <Compile Include="Assets\Script\DragController.cs" />
      <Compile Include="Assets\Script\GameController.cs" />
      <Compile Include="Assets\Script\MainBgmController.cs" />

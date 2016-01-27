@@ -20,6 +20,12 @@ public class SubMenuController : MonoBehaviour {
 	private Vector3 mousePosition;
 	private Vector3 preMousePosition;
 	private bool mouseDown = false;
+	private bool slideFlag = false;
+
+	private float vx;
+	private float vy;
+	private float u = 100.5f;
+	private float currentRemainTime = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -34,9 +40,25 @@ public class SubMenuController : MonoBehaviour {
 		if (changeScene) {
 			return;
 		}
-		if (mouseDown) {
-			objItem01.transform.Translate (Camera.main.ScreenToWorldPoint(Input.mousePosition) - preMousePosition);
-			preMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+		if (slideFlag) {
+			currentRemainTime += Time.deltaTime;
+			float x = 0.0f;
+			if ((vx > 0.0f) && (vx - (u * currentRemainTime) > 0.0f)){
+				x = (vx - (u * currentRemainTime)) * Time.deltaTime;
+			} else if ((vy < 0.0f) && (vx + (u * currentRemainTime) < 0.0f)) {
+				x = (vx + (u * currentRemainTime)) * Time.deltaTime;
+			}
+			float y = 0.0f;
+			if ((vy > 0.0f) && (vy - (u * currentRemainTime) > 0.0f)) {
+				y = (vy - (u * currentRemainTime)) * Time.deltaTime;
+			} else if ((vy < 0.0f) && (vy + (u * currentRemainTime) < 0.0f)) {
+				y = (vy + (u * currentRemainTime)) * Time.deltaTime;
+			}
+			if ((x == 0.0f) && (y == 0.0f)) {
+				slideFlag = false;
+			} else {
+				objItem01.transform.Translate (new Vector3(x, y, 0.0f));
+			}
 		}
 		if (Input.GetMouseButtonDown (0)) {
 			mouseDown = true;
@@ -45,6 +67,34 @@ public class SubMenuController : MonoBehaviour {
 		}
 		if (Input.GetMouseButtonUp (0)) {
 			mouseDown = false;
+			currentRemainTime = 0.0f;
+			mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+
+			vx = (mousePosition.x - preMousePosition.x) / Time.deltaTime;
+			if (vx > 50.0f) {
+				vx = 50.0f;
+			}
+			if (vx < -50.0f) {
+				vx = -50.0f;
+			}
+			vy = (mousePosition.y - preMousePosition.y) / Time.deltaTime;
+			if (vy > 50.0f) {
+				vy = 50.0f;
+			}
+			if (vy < -50.0f) {
+				vy = -50.0f;
+			}
+			print ("mousePosition.x = " + mousePosition.x);
+			print ("preMousePosition.x = " + preMousePosition.x);
+			print ("(mousePosition.x - preMousePosition.x) = " + (mousePosition.x - preMousePosition.x));
+			print ("Time.deltaTime = " + Time.deltaTime);
+			print ("vx = " + vx);
+			slideFlag = true;
+		}
+		if (mouseDown) {
+			slideFlag = false;
+			objItem01.transform.Translate (Camera.main.ScreenToWorldPoint(Input.mousePosition) - preMousePosition);
+			preMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 		}
 		if (Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

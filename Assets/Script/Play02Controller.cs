@@ -21,7 +21,7 @@ public class Play02Controller : MonoBehaviour {
 
 		BGMonVoice.Play ();
 
-		Invoke ("PlayFaceFinish", 3.0f);
+		//Invoke ("PlayFaceFinish", 3.0f);
 		Invoke ("PlayNoVoice", BGMonVoice.clip.length);
 
 		// Playコントローラーがない場合は無条件でメニュー画面に戻る
@@ -33,13 +33,18 @@ public class Play02Controller : MonoBehaviour {
 		play = playController.GetComponent<PlayController>();
 
 		// 表示
-		play.ShowFoods ();
+		//play.ShowFoods ();
+		play.Show (0);
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if (changeScene) {
 			return;
+		}
+		if (play.state == 2) {
+			changeScene = true;
+			Invoke ("NextScene", 0.0f);
 		}
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);

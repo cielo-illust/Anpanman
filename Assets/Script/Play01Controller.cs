@@ -9,11 +9,11 @@ public class Play01Controller : MonoBehaviour {
 	public Cutin buttonHome;
 	public Cutin buttonCloseMenu;
 	public CircleCollider2D buttonCloseMenuCol;
+	public GameObject playControllerPrefab;
 
 	AudioSource BGM;
 	AudioSource BGMonVoice;
 
-	private float currentRemainTime = 0.0f;
 	private bool menuFlag = false;
 
 	private GameObject playController;
@@ -35,12 +35,12 @@ public class Play01Controller : MonoBehaviour {
 
 		buttonCloseMenuCol.enabled = false;
 
-		// Playコントローラーがない場合は無条件でメニュー画面に戻る
-		GameObject playController = GameObject.FindWithTag ("PlayController");
-		if (playController == null) {
-			SceneManager.LoadScene ("menu");
-			return;
+		// Playコントローラーがある場合は削除してからインスタンス生成する
+		GameObject obj2 = GameObject.FindWithTag ("PlayController");
+		if (obj2 != null) {
+			GameObject.Destroy (obj2);
 		}
+		playController = (GameObject)Instantiate (playControllerPrefab);
 		play = playController.GetComponent<PlayController>();
 
 		// お題表示
