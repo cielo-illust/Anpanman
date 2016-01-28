@@ -35,6 +35,7 @@ public class PlayController : MonoBehaviour {
 	public GameObject fabPrefab3;
 	public GameObject eatPrefab;
 	public GameObject sePrefab;
+	public GameObject effect;
 
 	// faceアイテムの座標（１アイテムごとに可変のため）
 	public Vector3[] facePosition = new Vector3[12];	// 4×3個
@@ -328,6 +329,7 @@ public class PlayController : MonoBehaviour {
 		// 顔の場合は現在のマウスポジションが弁当に入っているか判断
 		if (selectCnt <= 2) {			// 顔
 			if ((mousePosition.x >= areaOffset.x) && (mousePosition.x <= areaOffset.x + areaSize.x) && (mousePosition.y <= areaOffset.y) && (mousePosition.y >= areaOffset.y + areaSize.y)) {
+				Instantiate(effect, facePosition[selectFace[selectCnt]], Quaternion.identity);
 				ShowFoods ();
 				return true;
 			}
@@ -374,6 +376,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 2, y + 1] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -401,6 +404,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 1] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -428,6 +432,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 1] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -455,6 +460,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 2, y + 0] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -482,6 +488,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 0] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -509,6 +516,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 0] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -535,6 +543,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 1] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -558,6 +567,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 1] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -581,6 +591,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 0] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -604,6 +615,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 0] = currentItem;
 
 						// しかるべき場所に設置
+						Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 						ShowFoods ();
 						return true;
 					}
@@ -618,6 +630,9 @@ public class PlayController : MonoBehaviour {
 				selectFoods [x, y] = currentItem;
 
 				// しかるべき場所に設置
+				float posx = (float)x * 0.84f + baseOffset.x;
+				float posy = -(float)y * 0.84f + baseOffset.y;
+				Instantiate(effect, new Vector3(posx, posy, 0.0f), Quaternion.identity);
 				ShowFoods ();
 				return true;
 			}

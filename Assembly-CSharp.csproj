@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\AutoDestroyEffect.cs" />
      <Compile Include="Assets\Script\CharactorController.cs" />
      <Compile Include="Assets\Script\Cutin.cs" />
      <Compile Include="Assets\Script\DontDestroyController.cs" />
