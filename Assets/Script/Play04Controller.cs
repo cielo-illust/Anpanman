@@ -11,6 +11,10 @@ public class Play04Controller : MonoBehaviour {
 	private GameObject playController;
 	private PlayController play;
 
+	private GameObject bentoObj1;
+	private GameObject bentoObj2;
+	private GameObject bentoObj3;
+
 	// Use this for initialization
 	void Start () {
 		sound = GetComponent<AudioSource>();
@@ -24,6 +28,18 @@ public class Play04Controller : MonoBehaviour {
 		}
 		play = playController.GetComponent<PlayController>();
 
+		// Playコントローラーがない場合は無条件でメニュー画面に戻る
+		bentoObj1 = GameObject.FindWithTag ("BentoObj");
+		if (bentoObj1 == null) {
+			SceneManager.LoadScene ("menu");
+			return;
+		}
+		bentoObj1.transform.localScale = new Vector3 (0.15f, 0.15f, transform.localScale.z);
+
+		bentoObj1.transform.position = new Vector3 (0.0f, -1.5f, transform.localScale.z);
+		bentoObj2 = (GameObject)Instantiate (bentoObj1, new Vector3 (-2.55f, -1.5f, 0.0f), Quaternion.identity);
+		bentoObj3 = (GameObject)Instantiate (bentoObj1, new Vector3 (2.55f, -1.5f, 0.0f), Quaternion.identity);
+
 		Invoke ("ShowFab", 8.0f);
 		Invoke ("ShowResult", 8.0f);
 		Invoke ("ChangeScene", sound.clip.length + 0.5f);
@@ -35,6 +51,9 @@ public class Play04Controller : MonoBehaviour {
 	}
 	void ChangeScene()
 	{
+		GameObject.Destroy (bentoObj1);
+		GameObject.Destroy (bentoObj2);
+		GameObject.Destroy (bentoObj3);
 		SceneManager.LoadScene ("play05");
 	}
 	void ShowResult()

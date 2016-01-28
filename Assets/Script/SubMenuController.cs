@@ -40,6 +40,7 @@ public class SubMenuController : MonoBehaviour {
 		if (changeScene) {
 			return;
 		}
+		/*
 		if (slideFlag) {
 			currentRemainTime += Time.deltaTime;
 			float x = 0.0f;
@@ -96,6 +97,7 @@ public class SubMenuController : MonoBehaviour {
 			objItem01.transform.Translate (Camera.main.ScreenToWorldPoint(Input.mousePosition) - preMousePosition);
 			preMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 		}
+		*/
 		if (Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast ((Vector2)ray.origin, (Vector2)ray.direction, 100);

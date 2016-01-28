@@ -4,10 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class Play02Controller : MonoBehaviour {
 
-	AudioSource BGM;
-	AudioSource BGMonVoice;
-	AudioSource voiceFaceFinish;
+	public Cutin finish;
+	public Cutin buttonYes;
+	public Cutin buttonNo;
+	public BoxCollider2D buttonYesCol;
+	public BoxCollider2D buttonNoCol;
+
+	private AudioSource BGM;
+	private AudioSource BGMonVoice;
+	private AudioSource voiceFinish;
+
 	private bool changeScene = false;
+	private bool preNextScene = false;
 
 	private GameObject playController;
 	private PlayController play;
@@ -17,12 +25,13 @@ public class Play02Controller : MonoBehaviour {
 		AudioSource[] audioSources = GetComponents<AudioSource>();
 		BGM = audioSources[0];
 		BGMonVoice = audioSources[1];
-		voiceFaceFinish = audioSources[2];
+		voiceFinish = audioSources[2];
 
 		BGMonVoice.Play ();
-
-		//Invoke ("PlayFaceFinish", 3.0f);
 		Invoke ("PlayNoVoice", BGMonVoice.clip.length);
+
+		buttonYesCol.enabled = false;
+		buttonNoCol.enabled = false;
 
 		// Playコントローラーがない場合は無条件でメニュー画面に戻る
 		GameObject playController = GameObject.FindWithTag ("PlayController");
@@ -33,8 +42,8 @@ public class Play02Controller : MonoBehaviour {
 		play = playController.GetComponent<PlayController>();
 
 		// 表示
-		//play.ShowFoods ();
-		play.Show (0);
+		play.InitObj();
+		play.Show (-1);
 	}
 
 	// Update is called once per frame
@@ -42,9 +51,11 @@ public class Play02Controller : MonoBehaviour {
 		if (changeScene) {
 			return;
 		}
-		if (play.state == 2) {
-			changeScene = true;
-			Invoke ("NextScene", 0.0f);
+		if ((!preNextScene) && (play.state == 100)) {
+			preNextScene = true;
+			voiceFinish.Play ();
+			Invoke ("ShowFinish", 3.0f);
+			Invoke ("ConfirmNextScene", voiceFinish.clip.length);
 		}
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -52,7 +63,13 @@ public class Play02Controller : MonoBehaviour {
 			if (hit.collider != null) {
 				if (hit.collider.gameObject.tag == "ButtonYes") {
 					changeScene = true;
-					Invoke ("NextScene", 0.0f);
+					finish.setState (2);
+					buttonYes.setState (2);
+					buttonNo.setState (2);
+					buttonYesCol.enabled = false;
+					buttonNoCol.enabled = false;
+					play.state = 3;
+					Invoke ("NextScene", 2.5f);
 				}
 				if (hit.collider.gameObject.tag == "ButtonNo") {
 					changeScene = true;
@@ -74,8 +91,15 @@ public class Play02Controller : MonoBehaviour {
 	{
 		BGM.Play ();
 	}
-	void PlayFaceFinish()
+	void ShowFinish()
 	{
-		voiceFaceFinish.Play ();
+		finish.setState (0);
+	}
+	void ConfirmNextScene()
+	{
+		buttonYesCol.enabled = true;
+		buttonNoCol.enabled = true;
+		buttonYes.setState (0);
+		buttonNo.setState (0);
 	}
 }

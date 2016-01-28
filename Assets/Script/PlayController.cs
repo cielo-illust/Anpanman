@@ -18,7 +18,6 @@ public class PlayController : MonoBehaviour {
 	public bool fabFlag2 = false;
 	public bool fabFlag3 = false;
 
-
 	// 選択したfaceアイテム
 	public int[] selectFace = new int[3];
 
@@ -31,6 +30,11 @@ public class PlayController : MonoBehaviour {
 	public GameObject foodsBackGroundPrefab;
 	public GameObject basePrefab;
 	public GameObject bentoPrefab;
+	public GameObject fabPrefab1;
+	public GameObject fabPrefab2;
+	public GameObject fabPrefab3;
+	public GameObject eatPrefab;
+	public GameObject sePrefab;
 
 	// faceアイテムの座標（１アイテムごとに可変のため）
 	public Vector3[] facePosition = new Vector3[12];	// 4×3個
@@ -46,14 +50,27 @@ public class PlayController : MonoBehaviour {
 
 	private int selectCnt = 0;
 	private int sizeSCnt = 0;
+	private int sizeLCnt = 0;
 	private GameObject currentObj;
 	private GameObject bentoObj;
-	private GameObject bentoObj2;
 	private GameObject baseObj;
+	private GameObject eatObj;
+	private GameObject seObj;
+	private GameObject futaObj;
+
+	private Animator eatAnimator;
+	public SeController seCtrl;
+
 	private Vector2 baseOffset = new Vector2(-2.92f, 1.91f);
 
 	private Vector3 mousePosition;
 	private Vector3 preMousePosition;
+
+	private float currentRemainTime = 0.0f;
+	private float srcPosX;
+	private float srcPosY;
+	private float srcScaleX;
+	private float srcScaleY;
 
 	// Use this for initialization
 	void Start () {
@@ -68,31 +85,6 @@ public class PlayController : MonoBehaviour {
 		fabObj1 = foodsPrefab.transform.GetChild (fab1).gameObject;
 		fabObj2 = foodsPrefab.transform.GetChild (fab2).gameObject;
 		fabObj3 = foodsPrefab.transform.GetChild (fab3).gameObject;
-
-		// 初期化
-		for (int y = 0; y < 6; y++) {
-			for (int x = 0; x < 8; x++) {
-				selectFoods [x, y] = -1;
-			}
-		}
-
-		// 初期に埋める
-		selectFoods[0, 2] = -99;
-		selectFoods[1, 2] = -99;
-		selectFoods[2, 2] = -99;
-		selectFoods[3, 2] = -99;
-		selectFoods[0, 3] = -99;
-		selectFoods[1, 3] = -99;
-		selectFoods[2, 3] = -99;
-		selectFoods[3, 3] = -99;
-		selectFoods[0, 4] = -99;
-		selectFoods[1, 4] = -99;
-		selectFoods[2, 4] = -99;
-		selectFoods[3, 4] = -99;
-		selectFoods[0, 5] = -99;
-		selectFoods[1, 5] = -99;
-		selectFoods[2, 5] = -99;
-		selectFoods[3, 5] = -99;
 
 		// フェイス位置
 		facePosition [0] = new Vector3 (-1.59f, -0.86f, 0.0f);
@@ -122,8 +114,63 @@ public class PlayController : MonoBehaviour {
 		faceSize [10] = new Vector3 (0.9f, 0.9f, 0.0f);
 		faceSize [11] = new Vector3 (0.8f, 0.8f, 0.0f);
 
+		// 初期化
+		InitObj();
 	}
-	
+	// Update is called once per frame
+	public void InitObj () {
+		if (seObj != null) {
+			GameObject.Destroy (seObj);
+		}
+		if (eatObj != null) {
+			GameObject.Destroy (eatObj);
+		}
+		if (futaObj != null) {
+			GameObject.Destroy (futaObj);
+		}
+		if (bentoObj != null) {
+			GameObject.Destroy (bentoObj);
+		}
+		if (currentObj != null) {
+			GameObject.Destroy (currentObj);
+		}
+
+		fabFlag1 = false;
+		fabFlag2 = false;
+		fabFlag3 = false;
+
+		state = -1;
+		selectCnt = 0;
+		sizeSCnt = 0;
+		sizeLCnt = 0;
+		for (int i = 0; i < 3; i++) {
+			selectFace [i] = -1;
+		}
+		for (int y = 0; y < 6; y++) {
+			for (int x = 0; x < 8; x++) {
+				selectFoods [x, y] = -1;
+			}
+		}
+
+		// 初期に埋める
+		selectFoods[0, 2] = -99;
+		selectFoods[1, 2] = -99;
+		selectFoods[2, 2] = -99;
+		selectFoods[3, 2] = -99;
+		selectFoods[0, 3] = -99;
+		selectFoods[1, 3] = -99;
+		selectFoods[2, 3] = -99;
+		selectFoods[3, 3] = -99;
+		selectFoods[0, 4] = -99;
+		selectFoods[1, 4] = -99;
+		selectFoods[2, 4] = -99;
+		selectFoods[3, 4] = -99;
+		selectFoods[0, 5] = -99;
+		selectFoods[1, 5] = -99;
+		selectFoods[2, 5] = -99;
+		selectFoods[3, 5] = -99;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		// 何もしないステート
@@ -149,9 +196,13 @@ public class PlayController : MonoBehaviour {
 							selectFace [selectCnt] = currentItem;
 							currentObj.transform.localScale = faceSize [selectFace [selectCnt]];
 						} else if (selectCnt == 3) {
-							currentObj.transform.localScale = new Vector3(1.8f, 1.8f, transform.localScale.z);
+							currentObj.transform.localScale = new Vector3(2.0f, 2.0f, transform.localScale.z);
 						} else if (selectCnt == 4) {
-							currentObj.transform.localScale = new Vector3(1.6f, 1.6f, transform.localScale.z);
+							currentObj.transform.localScale = new Vector3(1.8f, 1.8f, transform.localScale.z);
+						} else if (selectCnt == 5) {
+							currentObj.transform.localScale = new Vector3(1.2f, 1.2f, transform.localScale.z);
+						} else if (selectCnt == 6) {
+							currentObj.transform.localScale = new Vector3(1.2f, 1.2f, transform.localScale.z);
 						}
 
 						// 選択されなかったおかずもろとも削除
@@ -162,13 +213,30 @@ public class PlayController : MonoBehaviour {
 						// ドラッグの初期座標取得
 						preMousePosition = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10.0f));
 
+						// ドラッグ＆ドロップ
 						state = 1;
+					}
+					if (hit.collider.gameObject.tag == "FoodEatObj") {
+						// 1.0秒後におかずを食べる
+						if (currentObj != null) {
+							state = 2;
+							Invoke ("EatObj", 1.0f);
+
+							eatAnimator.SetBool ("PreEat", true);
+
+							// 移動の初期値
+							currentRemainTime = 0.0f;
+							srcPosX = currentObj.transform.position.x;
+							srcPosY = currentObj.transform.position.y;
+							srcScaleX = currentObj.transform.localScale.x;
+							srcScaleY = currentObj.transform.localScale.y;
+						}
 					}
 				}
 				return;
 			}
 		}
-		// アイテム設置ステート
+		// アイテム配置ステート
 		if (state == 1) {
 
 			// ドラッグ
@@ -178,90 +246,95 @@ public class PlayController : MonoBehaviour {
 
 			// ドロップ
 			if (Input.GetMouseButtonUp (0)) {
-
-				// 設置可能か判定
-				Vector2 areaOffset = new Vector2(baseOffset.x - 0.42f, baseOffset.y + 0.42f);
-				Vector2 areaSize = new Vector2(0.84f * 8.0f, -0.84f * 6.0f);
-				if (selectCnt <= 2) {			// 顔
-					if ((mousePosition.x >= areaOffset.x) && (mousePosition.x <= areaOffset.x + areaSize.x) && (mousePosition.y <= areaOffset.y) && (mousePosition.y >= areaOffset.y + areaSize.y)) {
-						// しかるべき場所に設置
-						currentObj.transform.position = facePosition [selectFace [selectCnt]];
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
-						selectCnt++;
-						Show (selectCnt);
-						return;
-					}
-				} else if (selectCnt == 3) {	// おかず大
-					// 設置
-					if (SetObj()) {
-						if (!IsEnableSetAfter ()) {
-							selectCnt++;
-
-							// 中おかずの置くスペースがない可能性
-							if (!IsEnableSetAfter ()) {
-								selectCnt++;
-
-								// この時点での空き個数
-								sizeSCnt = GetEmptyCount ();
-								print ("sizeSCnt = " + sizeSCnt);
-							}
-						}
-						Show (selectCnt);
-						return;
-					}
-				} else if (selectCnt == 4) {	// おかず中
-					// 設置
-					if (SetObj()) {
-						if (!IsEnableSetAfter ()) {
-							selectCnt++;
-
-							// この時点での空き個数
-							sizeSCnt = GetEmptyCount ();
-							print ("sizeSCnt = " + sizeSCnt);
-						}
-						Show (selectCnt);
-						return;
-					}
-				} else if (selectCnt == 5) {	// おかず小
-					// 設置
-					if (SetObj()) {
-						print ("selectCnt = " + selectCnt);
-						if (!IsEnableSetAfter ()) {
-							selectCnt++;
-						}
-						Show (selectCnt);
-						return;
-					}
-				} else if (selectCnt == 6) {	// デザート
-					// 設置
-					if (SetObj()) {
-						if (!IsEnableSetAfter ()) {
-							DeleteEmpty ();
-							state = 2;
-
-							// とりま
-							if (bentoObj != null) {
-								GameObject.Destroy (bentoObj);
-							}
-
-							return;
-						}
-						Show (selectCnt);
-						return;
-					}
+				// 配置できなかったらもう一度ドラッグ＆ドロップ
+				if (!SetObj()) {
+					state = 0;
+					return;
 				}
-				state = 0;
+				// 配置した結果デザートが完了した場合
+				if (selectCnt == 7) {
+					state = 100;
+					return;
+				}
+				// 次のおかずを表示
+				Show (selectCnt);
 			}
 		}
+		// アイテムをバイキンマンの位置に移動
+		if (state == 2) {
+			if (currentObj != null) {
+				// 次の遷移までの強度計算
+				currentRemainTime += Time.deltaTime;
+				float alpha = currentRemainTime / 1.0f;
+				if (alpha >= 1.0f) {
+					alpha = 1.0f;
+				}
+				SpriteRenderer spRenderer = currentObj.GetComponent<SpriteRenderer> ();
+				spRenderer.color = new Color (spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, 1.0f - alpha);
+				currentObj.transform.position = new Vector3 (blend (srcPosX, 4.41f, alpha), blend (srcPosY, -1.92f, alpha), transform.position.z);
+				currentObj.transform.localScale = new Vector3 (blend (srcScaleX, 0.0f, alpha), blend (srcScaleY, 0.0f, alpha), transform.localScale.z);
+			}
+		}
+		// 弁当にふたをする
+		if (state == 3) {
+			// 移動の初期値
+			currentRemainTime = 0.0f;
+			state = 4;
 
+			// ふたを生成する
+			futaObj = (GameObject)Instantiate (bentoPrefab.transform.GetChild (1).gameObject);
+			futaObj.transform.parent = bentoObj.transform;
+		}
+		if (state == 4) {
+			if (bentoObj != null) {
+				// 次の遷移までの強度計算
+				currentRemainTime += Time.deltaTime;
+				float alpha = currentRemainTime / 1.0f;
+				if (alpha >= 1.0f) {
+					alpha = 1.0f;
+					state = -1;
+				}
+				bentoObj.transform.position = new Vector3 (0.0f, blend (-0.65f, -0.4f, alpha), transform.position.z);
+				bentoObj.transform.localScale = new Vector3 (blend (1.0f, 0.85f, alpha), blend (1.0f, 0.85f, alpha), transform.localScale.z);
+			}
+		}
+	}
+	float blend (float src, float dst, float alpha) {
+		return ((dst - src) / 2.0f) * Mathf.Sin(Mathf.PI*alpha - (Mathf.PI/2.0f)) + ((dst - src) / 2.0f) + src;//((dst - src) / 2.0f) * Mathf.Sin(Mathf.PI*alpha - (Mathf.PI/2.0f)) + ((dst - src) / 2.0f) + src;
+	}
+	// おかずを食べる
+	public void EatObj () {
+		eatAnimator.SetBool ("PreEat", false);
+		if (currentObj != null) {
+			GameObject.Destroy (currentObj);
+			Show (selectCnt);
+			eatAnimator.SetBool ("Eat", true);
+			seCtrl.PlayEat ();
+			Invoke ("EatObjEnd", 1.0f);
+		} else {
+			state = 1;
+		}
+	}
+	public void EatObjEnd () {
+		eatAnimator.SetBool ("Eat", false);
 	}
 
 	// 現在のマス目でおかずが設置可能か？
 	public bool SetObj () {
 
-		// 現在のマウスポジションがどのマス目か判断
 		Vector2 areaOffset = new Vector2(baseOffset.x - 0.42f, baseOffset.y + 0.42f);
 		Vector2 areaSize = new Vector2(0.84f * 8.0f, -0.84f * 6.0f);
+
+		// 顔の場合は現在のマウスポジションが弁当に入っているか判断
+		if (selectCnt <= 2) {			// 顔
+			if ((mousePosition.x >= areaOffset.x) && (mousePosition.x <= areaOffset.x + areaSize.x) && (mousePosition.y <= areaOffset.y) && (mousePosition.y >= areaOffset.y + areaSize.y)) {
+				ShowFoods ();
+				return true;
+			}
+			return false;
+		}
+
+		// おかずの場合は現在のマウスポジションがどのマス目か判断
 		int x = -1;
 		int y = -1;
 		for (int yy = 0; yy < 6; yy++) {
@@ -291,7 +364,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f - 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 						// マス使用済み
 						selectFoods [x + 0, y + 0] = currentItem;
 						selectFoods [x + 1, y + 0] = currentItem;
@@ -301,8 +374,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 2, y + 1] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -318,7 +390,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f - 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 						
 						// マス使用済み
 						selectFoods [x - 1, y + 0] = currentItem;
@@ -329,8 +401,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 1] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -346,7 +417,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f - 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f - 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x - 2, y + 0] = currentItem;
@@ -357,8 +428,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 1] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -374,7 +444,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f + 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x + 0, y - 1] = currentItem;
@@ -385,8 +455,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 2, y + 0] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -402,7 +471,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f + 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x - 1, y - 1] = currentItem;
@@ -413,8 +482,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 0] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -430,7 +498,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f - 0.84f + baseOffset.x;
 					float posy = -(float)y * 0.84f + 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x - 2, y - 1] = currentItem;
@@ -441,8 +509,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 0] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -459,7 +526,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + 0.42f + baseOffset.x;
 					float posy = -(float)y * 0.84f - 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x + 0, y + 0] = currentItem;
@@ -468,8 +535,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 1] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -483,7 +549,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f - 0.42f + baseOffset.x;
 					float posy = -(float)y * 0.84f - 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x - 1, y + 0] = currentItem;
@@ -492,8 +558,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 1] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -507,7 +572,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f + 0.42f + baseOffset.x;
 					float posy = -(float)y * 0.84f + 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x + 0, y - 1] = currentItem;
@@ -516,8 +581,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 1, y + 0] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -531,7 +595,7 @@ public class PlayController : MonoBehaviour {
 
 					float posx = (float)x * 0.84f - 0.42f + baseOffset.x;
 					float posy = -(float)y * 0.84f + 0.42f + baseOffset.y;
-					if ((Mathf.Abs(mousePosition.x) - Mathf.Abs(posx) <= 0.42f) && (Mathf.Abs(mousePosition.y) - Mathf.Abs(posy) <= 0.42f)){
+					if ((Mathf.Abs(mousePosition.x - posx) <= 0.42f) && (Mathf.Abs(mousePosition.y - posy) <= 0.42f)){
 
 						// マス使用済み
 						selectFoods [x - 1, y - 1] = currentItem;
@@ -540,8 +604,7 @@ public class PlayController : MonoBehaviour {
 						selectFoods [x + 0, y + 0] = currentItem;
 
 						// しかるべき場所に設置
-						currentObj.transform.position = new Vector3(posx, posy, 0.0f);
-						currentObj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+						ShowFoods ();
 						return true;
 					}
 				}
@@ -555,8 +618,127 @@ public class PlayController : MonoBehaviour {
 				selectFoods [x, y] = currentItem;
 
 				// しかるべき場所に設置
-				currentObj.transform.position = new Vector3 ((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y, 0.0f);
-				currentObj.GetComponent<BoxCollider2D> ().enabled = false; // もう動かせない
+				ShowFoods ();
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// 現在のマス目でおかずが設置可能か？
+	public bool IsEnableSet (int x, int y) {
+
+		// 3×2のfoodsが設置可能か？
+		if (selectCnt == 3) {
+			try {
+				if ((x + 2 < 8) && (y + 1 < 6) && 
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1) &&
+					(selectFoods [x + 2, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 1] == -1) &&
+					(selectFoods [x + 1, y + 1] == -1) &&
+					(selectFoods [x + 2, y + 1] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 1 >= 0) && (x + 1 < 8) && (y + 1 < 6) && 
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1) &&
+					(selectFoods [x - 1, y + 1] == -1) &&
+					(selectFoods [x + 0, y + 1] == -1) &&
+					(selectFoods [x + 1, y + 1] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 2 >= 0) && (y + 1 < 6) && 
+					(selectFoods [x - 2, y + 0] == -1) &&
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x - 2, y + 1] == -1) &&
+					(selectFoods [x - 1, y + 1] == -1) &&
+					(selectFoods [x + 0, y + 1] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x + 2 < 8) && (y - 1 >= 0) && 
+					(selectFoods [x + 0, y - 1] == -1) &&
+					(selectFoods [x + 1, y - 1] == -1) &&
+					(selectFoods [x + 2, y - 1] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1) &&
+					(selectFoods [x + 2, y + 0] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 1 >= 0) && (x + 1 < 8) && (y - 1 >= 0) && 
+					(selectFoods [x - 1, y - 1] == -1) &&
+					(selectFoods [x + 0, y - 1] == -1) &&
+					(selectFoods [x + 1, y - 1] == -1) &&
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 2 >= 0) && (y - 1 >= 0) && 
+					(selectFoods [x - 2, y - 1] == -1) &&
+					(selectFoods [x - 1, y - 1] == -1) &&
+					(selectFoods [x + 0, y - 1] == -1) &&
+					(selectFoods [x - 2, y + 0] == -1) &&
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+		}
+		// 2×2のfoodsが設置可能か？
+		if (selectCnt == 4) {
+			try {
+				if ((x + 1 < 8) && (y + 1 < 6) && 
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 1] == -1) &&
+					(selectFoods [x + 1, y + 1] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 1 >= 0) && (y + 1 < 6) && 
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x - 1, y + 1] == -1) &&
+					(selectFoods [x + 0, y + 1] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x + 1 < 8) && (y - 1 >= 0) && 
+					(selectFoods [x + 0, y - 1] == -1) &&
+					(selectFoods [x + 1, y - 1] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1) &&
+					(selectFoods [x + 1, y + 0] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+			try {
+				if ((x - 1 >= 0) && (y - 1 >= 0) && 
+					(selectFoods [x - 1, y - 1] == -1) &&
+					(selectFoods [x + 0, y - 1] == -1) &&
+					(selectFoods [x - 1, y + 0] == -1) &&
+					(selectFoods [x + 0, y + 0] == -1)) {
+					return true;
+				}
+			} catch(System.IndexOutOfRangeException ex) {}
+		}
+		// 1×1のfoodsが設置
+		if ((selectCnt == 5) || (selectCnt == 6)) {
+			if (selectFoods [x, y] == -1) {
 				return true;
 			}
 		}
@@ -604,8 +786,9 @@ public class PlayController : MonoBehaviour {
 		if (selectCnt == 6) {
 			for (int y = 0; y < 6; y++) {
 				for (int x = 0; x < 8; x++) {
-					if (selectFoods [x, y] == -1)
+					if (selectFoods [x, y] == -1) {
 						return true;
+					}
 				}
 			}
 		}
@@ -628,64 +811,136 @@ public class PlayController : MonoBehaviour {
 	// 表示
 	public void ShowFoods () {
 
-		GameObject faceObj0 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace[0]).gameObject, facePosition[selectFace[0]], Quaternion.identity);
-		faceObj0.transform.localScale =  faceSize[selectFace[0]];
-		GameObject faceObj1 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace[1]).gameObject, facePosition[selectFace[1]], Quaternion.identity);
-		faceObj1.transform.localScale =  faceSize[selectFace[1]];
-		GameObject faceObj2 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace[2]).gameObject, facePosition[selectFace[2]], Quaternion.identity);
-		faceObj2.transform.localScale =  faceSize[selectFace[2]];
+		// 設置したおかずの評価
+		if (selectCnt >= 3) {
+			if (currentItem == fab1) {
+				fabFlag1 = true;
+				Instantiate (fabPrefab1);
+			}
+			if (currentItem == fab2) {
+				fabFlag2 = true;
+				Instantiate (fabPrefab2);
+			}
+			if (currentItem == fab3) {
+				fabFlag3 = true;
+				Instantiate (fabPrefab3);
+			}
+		}
 
+		// 弁当箱の空き具合を判断
+		int se = -1;
+		if (selectCnt <= 2) {	// 顔
+			selectCnt++;
+			if (selectCnt == 3) {
+				se = 0;
+			}
+		}
+		if (selectCnt == 3) {	// おかず大
+			sizeLCnt++;
+			if ((!IsEnableSetAfter ()) || (sizeLCnt > 3)) { // おかず大は3個まで
+				selectCnt++;
+				se = 1;
+			}
+		}
+		if (selectCnt == 4) {	// おかず中
+			if ((!IsEnableSetAfter ()) || (GetEmptyCount () <= 5)) {
+				selectCnt++;
+				sizeSCnt = GetEmptyCount (); // おかず中が置けなくなった時点での空き個数を保存
+				se = 2;
+			}
+		}
+		if (selectCnt == 5) {	// おかず小
+			if ((!IsEnableSetAfter ()) || (GetEmptyCount () == 1)) {
+				selectCnt++;
+				se = 3;
+			}
+		}
+		if (selectCnt == 6) {	// デザート
+			if (!IsEnableSetAfter ()) {
+				selectCnt++;
+				se = -99;
+			}
+		}
+		seCtrl.PlaySet (se);
+
+		// 弁当箱
+		if (bentoObj != null) {
+			GameObject.Destroy (bentoObj);
+		}
+		bentoObj = (GameObject)Instantiate (bentoPrefab.transform.GetChild (0).gameObject);
+		bentoObj.GetComponent<SpriteRenderer>().sortingOrder = -100;
+
+		// おかず
 		for (int y = 0; y < 6; y++) {
 			for (int x = 0; x < 8; x++) {
 				if (selectFoods [x, y] == -99) {
 					;
 				} else if (selectFoods [x, y] == -1) {
-					GameObject obj = (GameObject)Instantiate (foodsBackGroundPrefab, new Vector3((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y, 0.0f), Quaternion.identity);
-					//obj.transform.parent = this.transform;
+					if (IsEnableSet (x, y)) {
+						GameObject obj = (GameObject)Instantiate (foodsBackGroundPrefab, new Vector3((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y, 0.0f), Quaternion.identity);
+						obj.transform.parent = bentoObj.transform;
+						obj.GetComponent<SpriteRenderer>().sortingOrder = 100;
+					}
 				} else if (selectFoods [x, y] < 6) {
-					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + 0.84f + baseOffset.x, -(float)y * 0.84f - 0.42f + baseOffset.y, 0.0f), Quaternion.identity);
-					obj.transform.localScale =  new Vector3(1.8f, 1.8f, transform.localScale.z);
-					//obj.transform.parent = this.transform;
+					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + 0.84f + baseOffset.x, -(float)y * 0.84f - 0.42f + baseOffset.y + 0.2f , 0.0f), Quaternion.identity);
+					obj.transform.localScale =  new Vector3(2.0f, 2.0f, transform.localScale.z);
+					obj.transform.parent = bentoObj.transform;
+					obj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+					obj.GetComponent<SpriteRenderer>().sortingOrder = x + (y * 8);
 					selectFoods [x + 1, y] = -99;
 					selectFoods [x + 2, y] = -99;
 					selectFoods [x, y + 1] = -99;
 					selectFoods [x + 1, y + 1] = -99;
 					selectFoods [x + 2, y + 1] = -99;
-				} else if (selectFoods [x, y] < 13) {
-					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + 0.42f + baseOffset.x, -(float)y * 0.84f - 0.42f + baseOffset.y, 0.0f), Quaternion.identity);
-					obj.transform.localScale =  new Vector3(1.6f, 1.6f, transform.localScale.z);
-					//obj.transform.parent = this.transform;
+				} else if (selectFoods [x, y] < 14) {
+					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + 0.42f + baseOffset.x, -(float)y * 0.84f - 0.42f + baseOffset.y + 0.2f, 0.0f), Quaternion.identity);
+					obj.transform.localScale =  new Vector3(1.8f, 1.8f, transform.localScale.z);
+					obj.transform.parent = bentoObj.transform;
+					obj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+					obj.GetComponent<SpriteRenderer>().sortingOrder = x + (y * 8);
 					selectFoods [x + 1, y] = -99;
 					selectFoods [x, y + 1] = -99;
 					selectFoods [x + 1, y + 1] = -99;
 				} else {
-					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y, 0.0f), Quaternion.identity);
-					//obj.transform.parent = this.transform;
+					GameObject obj = (GameObject)Instantiate (foodsPrefab.transform.GetChild (selectFoods [x, y]).gameObject, new Vector3((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y + 0.2f, 0.0f), Quaternion.identity);
+					obj.transform.localScale =  new Vector3(1.2f, 1.2f, transform.localScale.z);
+					obj.transform.parent = bentoObj.transform;
+					obj.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+					obj.GetComponent<SpriteRenderer>().sortingOrder = x + (y * 8);
 				}
 			}
 		}
-	}
 
-	// 表示
-	public void ShowEmpty () {
-		DeleteEmpty ();
-		bentoObj2 = (GameObject)Instantiate (bentoPrefab);
-		SpriteRenderer spRenderer = bentoObj2.GetComponent<SpriteRenderer>();
-		spRenderer.color = new Color(spRenderer.color.r, spRenderer.color.g, spRenderer.color.b, 0); // 透明に
-		for (int y = 0; y < 6; y++) {
-			for (int x = 0; x < 8; x++) {
-				if (selectFoods [x, y] == -1) {
-					GameObject obj = (GameObject)Instantiate (foodsBackGroundPrefab, new Vector3((float)x * 0.84f + baseOffset.x, -(float)y * 0.84f + baseOffset.y, 0.0f), Quaternion.identity);
-					obj.transform.parent = bentoObj2.transform;
-				}
-			}
+		// 顔
+		GameObject bentoObj1 = (GameObject)Instantiate (bentoPrefab.transform.GetChild (3).gameObject);
+		bentoObj1.transform.parent = bentoObj.transform;
+		bentoObj1.GetComponent<SpriteRenderer>().sortingOrder = 50;
+		if (selectFace [0] !=- 1) {
+			GameObject faceObj0 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace[0]).gameObject, facePosition[selectFace[0]], Quaternion.identity);
+			faceObj0.transform.localScale =  faceSize[selectFace[0]];
+			faceObj0.transform.parent = bentoObj.transform;
+			faceObj0.GetComponent<BoxCollider2D>().enabled = false; // もう動かせない
+			faceObj0.GetComponent<SpriteRenderer>().sortingOrder = 51;
 		}
-	}
-	// 表示
-	public void DeleteEmpty () {
-		if (bentoObj2 != null) {
-			GameObject.Destroy (bentoObj2);
+		if (selectFace [1] != -1) {
+			GameObject faceObj1 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace [1]).gameObject, facePosition [selectFace [1]], Quaternion.identity);
+			faceObj1.transform.localScale = faceSize [selectFace [1]];
+			faceObj1.transform.parent = bentoObj.transform;
+			faceObj1.GetComponent<BoxCollider2D> ().enabled = false; // もう動かせない
+			faceObj1.GetComponent<SpriteRenderer> ().sortingOrder = 51;
 		}
+		if (selectFace [2] != -1) {
+			GameObject faceObj2 = (GameObject)Instantiate (facePrefab.transform.GetChild (selectFace [2]).gameObject, facePosition [selectFace [2]], Quaternion.identity);
+			faceObj2.transform.localScale = faceSize [selectFace [2]];
+			faceObj2.transform.parent = bentoObj.transform;
+			faceObj2.GetComponent<BoxCollider2D> ().enabled = false; // もう動かせない
+			faceObj2.GetComponent<SpriteRenderer> ().sortingOrder = 51;
+		}
+
+		// 前面
+		GameObject bentoObj2 = (GameObject)Instantiate (bentoPrefab.transform.GetChild (2).gameObject);
+		bentoObj2.transform.parent = bentoObj.transform;
+		bentoObj2.GetComponent<SpriteRenderer>().sortingOrder = 52;
 	}
 
 	// 表示
@@ -693,13 +948,18 @@ public class PlayController : MonoBehaviour {
 		state = 0;
 		baseObj = (GameObject)Instantiate (basePrefab);
 
-		// 空きエリアを表示
-		ShowEmpty ();
+		// 初期表示
+		if (phase == -1) {
+			seObj = (GameObject)Instantiate (sePrefab);
+			seCtrl = seObj.GetComponent<SeController> ();
+			eatObj = (GameObject)Instantiate (eatPrefab);
+			eatAnimator = eatObj.GetComponent<Animator> ();
+			bentoObj = (GameObject)Instantiate (bentoPrefab.transform.GetChild (0).gameObject);
+			phase = 0;
+		}
 
 		// 目
 		if (phase == 0) {
-			selectCnt = 0;	// 初期化
-			bentoObj = (GameObject)Instantiate (bentoPrefab);
 			GameObject obj0 = (GameObject)Instantiate (facePrefab.transform.GetChild (0).gameObject, new Vector3 (-4.35f, 2.25f, 0.0f), Quaternion.identity);
 			GameObject obj1 = (GameObject)Instantiate (facePrefab.transform.GetChild (1).gameObject, new Vector3 (-4.35f, 0.75f, 0.0f), Quaternion.identity);
 			GameObject obj2 = (GameObject)Instantiate (facePrefab.transform.GetChild (2).gameObject, new Vector3 (-4.35f, -0.75f, 0.0f), Quaternion.identity);
